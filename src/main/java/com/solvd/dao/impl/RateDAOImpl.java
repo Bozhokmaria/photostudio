@@ -1,0 +1,4 @@
+package com.solvd.dao.impl;
+
+public class RateDAOImpl {
+}

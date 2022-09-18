@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<catalog>
+    <book>
+        <author>Raoul-Gabriel Urma, Mario Fusco, Alan Mycroft</author>
+        <price>100.55</price>
+        <publish_date>2022-09-16T21:46:51.173+03:00</publish_date>
+        <title>Java 8 in Action</title>
+    </book>
+    <book>
+        <author>Petar Tahchiev Felipe Leme Vincent Massol Gary Gregory</author>
+        <price>230.0</price>
+        <publish_date>2022-09-16T21:46:51.173+03:00</publish_date>
+        <title>JUnit in Action</title>
+    </book>
+</catalog>

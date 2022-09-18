@@ -16,11 +16,11 @@ public class Main {
 
     public static void main(String[] args) {
         Catalog catalog = new Catalog();
-        catalog.add(new Book("Author1", "Title1", 40.55, new Date()));
-        catalog.add(new Book("Author2", "Title2", 30, new Date()));
+        catalog.add(new Book("Raoul-Gabriel Urma, Mario Fusco, Alan Mycroft", "Java 8 in Action", 140.55, new Date()));
+        catalog.add(new Book("Petar Tahchiev Felipe Leme Vincent Massol Gary Gregory", "JUnit in Action", 230, new Date()));
 
         try {
-            File file = new File("src/main/java/com/solvd/jaxb/output.xml");
+            File file = new File("src/main/java/com/solvd/jaxb/input.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(Catalog.class);
             Marshaller mar = jaxbContext.createMarshaller();
 
