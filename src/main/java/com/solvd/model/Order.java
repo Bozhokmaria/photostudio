@@ -1,6 +1,166 @@
 package com.solvd.model;
 
+import java.time.LocalDateTime;
+
 public class Order {
+          private int id;
+          private LocalDateTime booking;
+    private int clientId;
+    private int dressRoomId;
+    private int studioId;
+    private int photographerId;
+    private int visagisteId;
+    private int hairdresserId;
+    private int rateId;
+    private int photostudioId;
+    private double totalPrice;
+
+    public Order() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getBooking() {
+        return booking;
+    }
+
+    public void setBooking(LocalDateTime booking) {
+        this.booking = booking;
+    }
+
+    public int getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
+    }
+
+    public int getDressRoomId() {
+        return dressRoomId;
+    }
+
+    public void setDressRoomId(int dressRoomId) {
+        this.dressRoomId = dressRoomId;
+    }
+
+    public int getStudioId() {
+        return studioId;
+    }
+
+    public void setStudioId(int studioId) {
+        this.studioId = studioId;
+    }
+
+    public int getPhotographerId() {
+        return photographerId;
+    }
+
+    public void setPhotographerId(int photographerId) {
+        this.photographerId = photographerId;
+    }
+
+    public int getVisagisteId() {
+        return visagisteId;
+    }
+
+    public void setVisagisteId(int visagisteId) {
+        this.visagisteId = visagisteId;
+    }
+
+    public int getHairdresserId() {
+        return hairdresserId;
+    }
+
+    public void setHairdresserId(int hairdresserId) {
+        this.hairdresserId = hairdresserId;
+    }
+
+    public int getRateId() {
+        return rateId;
+    }
+
+    public void setRateId(int rateId) {
+        this.rateId = rateId;
+    }
+
+    public int getPhotostudioId() {
+        return photostudioId;
+    }
+
+    public void setPhotostudioId(int photostudioId) {
+        this.photostudioId = photostudioId;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Order)) return false;
+
+        Order order = (Order) o;
+
+        if (id != order.id) return false;
+        if (clientId != order.clientId) return false;
+        if (dressRoomId != order.dressRoomId) return false;
+        if (studioId != order.studioId) return false;
+        if (photographerId != order.photographerId) return false;
+        if (visagisteId != order.visagisteId) return false;
+        if (hairdresserId != order.hairdresserId) return false;
+        if (rateId != order.rateId) return false;
+        if (photostudioId != order.photostudioId) return false;
+        if (Double.compare(order.totalPrice, totalPrice) != 0) return false;
+        return booking != null ? booking.equals(order.booking) : order.booking == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = id;
+        result = 31 * result + (booking != null ? booking.hashCode() : 0);
+        result = 31 * result + clientId;
+        result = 31 * result + dressRoomId;
+        result = 31 * result + studioId;
+        result = 31 * result + photographerId;
+        result = 31 * result + visagisteId;
+        result = 31 * result + hairdresserId;
+        result = 31 * result + rateId;
+        result = 31 * result + photostudioId;
+        temp = Double.doubleToLongBits(totalPrice);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", booking=" + booking +
+                ", clientId=" + clientId +
+                ", dressRoomId=" + dressRoomId +
+                ", studioId=" + studioId +
+                ", photographerId=" + photographerId +
+                ", visagisteId=" + visagisteId +
+                ", hairdresserId=" + hairdresserId +
+                ", rateId=" + rateId +
+                ", photostudioId=" + photostudioId +
+                ", totalPrice=" + totalPrice +
+                '}';
+    }
 }
 //
 //        CREATE TABLE `order` (

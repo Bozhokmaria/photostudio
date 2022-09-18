@@ -1,6 +1,65 @@
 package com.solvd.model;
 
 public class PhotostudioHairdresser {
+    private int id;
+    private int photostudioId;
+    private int hairdresserId;
+
+    public PhotostudioHairdresser() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPhotostudioId() {
+        return photostudioId;
+    }
+
+    public void setPhotostudioId(int photostudioId) {
+        this.photostudioId = photostudioId;
+    }
+
+    public int getHairdresserId() {
+        return hairdresserId;
+    }
+
+    public void setHairdresserId(int hairdresserId) {
+        this.hairdresserId = hairdresserId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PhotostudioHairdresser)) return false;
+
+        PhotostudioHairdresser that = (PhotostudioHairdresser) o;
+
+        if (id != that.id) return false;
+        if (photostudioId != that.photostudioId) return false;
+        return hairdresserId == that.hairdresserId;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + photostudioId;
+        result = 31 * result + hairdresserId;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "PhotostudioHairdresser{" +
+                "id=" + id +
+                ", photostudioId=" + photostudioId +
+                ", hairdresserId=" + hairdresserId +
+                '}';
+    }
 }
 
 //

@@ -1,6 +1,65 @@
 package com.solvd.model;
 
 public class PhotostudioVisagiste {
+    private int id;
+    private int photostudioId;
+    private int visagisteId;
+
+    public PhotostudioVisagiste() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPhotostudioId() {
+        return photostudioId;
+    }
+
+    public void setPhotostudioId(int photostudioId) {
+        this.photostudioId = photostudioId;
+    }
+
+    public int getVisagisteId() {
+        return visagisteId;
+    }
+
+    public void setVisagisteId(int visagisteId) {
+        this.visagisteId = visagisteId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PhotostudioVisagiste)) return false;
+
+        PhotostudioVisagiste that = (PhotostudioVisagiste) o;
+
+        if (id != that.id) return false;
+        if (photostudioId != that.photostudioId) return false;
+        return visagisteId == that.visagisteId;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + photostudioId;
+        result = 31 * result + visagisteId;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "PhotostudioVisagiste{" +
+                "id=" + id +
+                ", photostudioId=" + photostudioId +
+                ", visagisteId=" + visagisteId +
+                '}';
+    }
 }
 
 
