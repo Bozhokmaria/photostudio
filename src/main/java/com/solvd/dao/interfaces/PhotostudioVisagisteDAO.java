@@ -1,4 +1,7 @@
 package com.solvd.dao.interfaces;
 
-public interface PhotostudioVisagisteDAO {
+import com.solvd.model.Country;
+import com.solvd.model.PhotostudioVisagiste;
+
+public interface PhotostudioVisagisteDAO extends BaseDAO<PhotostudioVisagiste> {
 }

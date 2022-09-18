@@ -1,10 +1,11 @@
 package com.solvd.model;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 public class Order {
-          private int id;
-          private LocalDateTime booking;
+    private int id;
+    private LocalDateTime booking;
     private int clientId;
     private int dressRoomId;
     private int studioId;

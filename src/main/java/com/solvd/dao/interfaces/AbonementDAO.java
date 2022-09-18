@@ -1,4 +1,7 @@
 package com.solvd.dao.interfaces;
 
-public interface AbonementDAO {
+import com.solvd.model.Abonement;
+
+public interface AbonementDAO extends BaseDAO<Abonement> {
 }
+

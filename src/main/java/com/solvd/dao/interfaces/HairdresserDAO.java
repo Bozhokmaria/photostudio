@@ -1,4 +1,7 @@
 package com.solvd.dao.interfaces;
 
-public interface HairdresserDAO {
+import com.solvd.model.Country;
+import com.solvd.model.Hairdresser;
+
+public interface HairdresserDAO extends BaseDAO<Hairdresser> {
 }

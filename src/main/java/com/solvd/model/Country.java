@@ -2,18 +2,18 @@ package com.solvd.model;
 
 public class Country {
     private int id;
-    private String country;
+    private String name;
 
     public Country() {
     }
 
-    public Country(String country) {
-        this.country = country;
+    public Country(String name) {
+        this.name = name;
     }
 
-    public Country(int id, String country) {
+    public Country(int id, String name) {
         this.id = id;
-        this.country = country;
+        this.name = name;
     }
 
     public int getId() {
@@ -24,12 +24,12 @@ public class Country {
         this.id = id;
     }
 
-    public String getCountry() {
-        return country;
+    public String getName() {
+        return name;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -40,13 +40,13 @@ public class Country {
         Country country1 = (Country) o;
 
         if (id != country1.id) return false;
-        return country != null ? country.equals(country1.country) : country1.country == null;
+        return name != null ? name.equals(country1.name) : country1.name == null;
     }
 
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (country != null ? country.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
 
@@ -54,7 +54,7 @@ public class Country {
     public String toString() {
         return "Country{" +
                 "id=" + id +
-                ", country='" + country + '\'' +
+                ", country='" + name + '\'' +
                 '}';
     }
 }

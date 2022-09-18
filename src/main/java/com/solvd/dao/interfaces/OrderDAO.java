@@ -1,4 +1,7 @@
 package com.solvd.dao.interfaces;
 
-public interface OrderDAO {
+import com.solvd.model.Country;
+import com.solvd.model.Order;
+
+public interface OrderDAO extends BaseDAO<Order>{
 }

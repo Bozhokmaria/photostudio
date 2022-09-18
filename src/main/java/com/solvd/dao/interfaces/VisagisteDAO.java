@@ -1,4 +1,7 @@
 package com.solvd.dao.interfaces;
 
-public interface VisagisteDAO {
+import com.solvd.model.Country;
+import com.solvd.model.Visagiste;
+
+public interface VisagisteDAO extends BaseDAO<Visagiste>{
 }

@@ -1,4 +1,6 @@
 package com.solvd.dao.interfaces;
 
-public interface CityDAO {
+import com.solvd.model.City;
+
+public interface CityDAO extends BaseDAO<City>{
 }

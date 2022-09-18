@@ -1,4 +1,6 @@
 package com.solvd.dao.interfaces;
 
-public interface ClientDAO {
+import com.solvd.model.Client;
+
+public interface ClientDAO extends BaseDAO<Client>{
 }

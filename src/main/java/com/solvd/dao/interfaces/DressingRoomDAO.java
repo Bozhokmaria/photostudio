@@ -1,4 +1,7 @@
 package com.solvd.dao.interfaces;
 
-public interface DressingRoomDAO {
+import com.solvd.model.Country;
+import com.solvd.model.DressingRoom;
+
+public interface DressingRoomDAO extends BaseDAO<DressingRoom>{
 }

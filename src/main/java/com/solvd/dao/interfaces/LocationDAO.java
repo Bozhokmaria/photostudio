@@ -1,4 +1,7 @@
 package com.solvd.dao.interfaces;
 
-public interface LocationDAO {
+import com.solvd.model.Country;
+import com.solvd.model.Location;
+
+public interface LocationDAO extends BaseDAO<Location>{
 }
