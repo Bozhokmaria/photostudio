@@ -6,10 +6,7 @@ import com.solvd.model.Photographer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +15,9 @@ public class PhotographerDAOImpl implements PhotographerDAO {
     private static final Logger LOGGER = LogManager.getLogger(PhotographerDAOImpl.class);
 
     private static final String INSERT = "INSERT INTO photographer " +
-            "photographer.ph_first_name, " +
+            "(photographer.ph_first_name, " +
             "photographer.ph_last_name, " +
-            "photographer.ph_price " +
+            "photographer.ph_price) " +
             "VALUES (?,?,?)";
 
     private static final String UPDATE = "UPDATE photographer " +
@@ -40,7 +37,7 @@ public class PhotographerDAOImpl implements PhotographerDAO {
         PreparedStatement ps = null;
         try {
             connection = ConnectionUtil.getConnection();
-            ps = connection.prepareStatement(INSERT);
+            ps = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, object.getFirstName());
             ps.setString(2, object.getLastName());
             ps.setDouble(3, object.getPrice());

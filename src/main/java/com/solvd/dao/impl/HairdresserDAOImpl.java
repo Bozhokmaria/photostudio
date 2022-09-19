@@ -6,10 +6,7 @@ import com.solvd.model.Hairdresser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +14,9 @@ public class HairdresserDAOImpl implements HairdresserDAO {
     private static final Logger LOGGER = LogManager.getLogger(LocationDAOImpl.class);
 
     private static final String INSERT = "INSERT INTO hairdresser " +
-            "hairdresser.hd_first_name, " +
+            "(hairdresser.hd_first_name, " +
             "hairdresser.hd_last_name, " +
-            "hairdresser.hd_price " +
+            "hairdresser.hd_price) " +
             "VALUES (?,?,?)";
 
     private static final String UPDATE = "UPDATE hairdresser " +
@@ -40,7 +37,7 @@ public class HairdresserDAOImpl implements HairdresserDAO {
         PreparedStatement ps = null;
         try {
             connection = ConnectionUtil.getConnection();
-            ps = connection.prepareStatement(INSERT);
+            ps = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, object.getFirstName());
             ps.setString(2, object.getLastName());
             ps.setDouble(3, object.getPrice());

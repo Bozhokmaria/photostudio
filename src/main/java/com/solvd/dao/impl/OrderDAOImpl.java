@@ -3,7 +3,6 @@ package com.solvd.dao.impl;
 import com.solvd.connection.ConnectionUtil;
 import com.solvd.dao.interfaces.OrderDAO;
 import com.solvd.model.Order;
-import com.solvd.model.Visagiste;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,32 +16,34 @@ public class OrderDAOImpl implements OrderDAO {
     private static final Logger LOGGER = LogManager.getLogger(OrderDAOImpl.class);
 
     private static final String INSERT = "INSERT INTO photostudio.order " +
-            "photostudio.order.order_booking, " +
-            "photostudio.order.dress_room_id, " +
-            "photostudio.order.studio_id, " +
-            "photostudio.order.ph_id, " +
-            "photostudio.order.vs_id, " +
-            "photostudio.order.hd_id, " +
-            "photostudio.order.rate_id, " +
-            "photostudio.order.ph_st_id, " +
-            "photostudio.order.order_total_price " +
-            "VALUES (?,?,?,?,?,?,?,?,?)";
+            "(order_booking, " +
+            "dress_room_id, " +
+            "client_id, " +
+            "studio_id, " +
+            "ph_id, " +
+            "vs_id, " +
+            "hd_id, " +
+            "rate_id, " +
+            "ph_st_id, " +
+            "order_total_price) " +
+            "VALUES (?,?,?,?,?,?,?,?,?,?)";
 
     private static final String UPDATE = "UPDATE photostudio.order " +
-            "SET photostudio.order.order_booking=?, " +
-            "photostudio.order.dress_room_id=?, " +
-            "photostudio.order.studio_id=?, " +
-            "photostudio.order.ph_id=?, " +
-            "photostudio.order.vs_id=?, " +
-            "photostudio.order.hd_id=?, " +
-            "photostudio.order.rate_id=?, " +
-            "photostudio.order.ph_st_id=?, " +
-            "photostudio.order.order_total_price=? " +
-            "WHERE photostudio.order.order_id=?";
+            "SET order_booking=?, " +
+            "dress_room_id=?, "+
+            "client_id=?, " +
+            "studio_id=?, " +
+            "ph_id=?, " +
+            "vs_id=?, " +
+            "hd_id=?, " +
+            "rate_id=?, " +
+            "ph_st_id=?, " +
+            "order_total_price=? " +
+            "WHERE order_id=?";
 
-    private static final String DELETE = "DELETE FROM photostudio.order WHERE photostudio.order.order_id=?";
+    private static final String DELETE = "DELETE FROM photostudio.order WHERE order_id=?";
 
-    private static final String GET_BY_ID = "SELECT * FROM photostudio.order WHERE photostudio.order.order_id=?";
+    private static final String GET_BY_ID = "SELECT * FROM photostudio.order WHERE order_id=?";
 
     private static final String GET_ALL = "SELECT * FROM photostudio.order";
 
@@ -52,16 +53,17 @@ public class OrderDAOImpl implements OrderDAO {
         PreparedStatement ps = null;
         try {
             connection = ConnectionUtil.getConnection();
-            ps = connection.prepareStatement(INSERT);
+            ps = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             ps.setDate(1, Date.valueOf(object.getBooking().toLocalDate()));
             ps.setInt(2, object.getDressRoomId());
-            ps.setInt(3, object.getStudioId());
-            ps.setInt(4, object.getPhotographerId());
-            ps.setInt(5, object.getVisagisteId());
-            ps.setInt(6, object.getHairdresserId());
-            ps.setInt(7, object.getRateId());
-            ps.setInt(8, object.getPhotostudioId());
-            ps.setDouble(9, object.getTotalPrice());
+            ps.setInt(3, object.getClientId());
+            ps.setInt(4, object.getStudioId());
+            ps.setInt(5, object.getPhotographerId());
+            ps.setInt(6, object.getVisagisteId());
+            ps.setInt(7, object.getHairdresserId());
+            ps.setInt(8, object.getRateId());
+            ps.setInt(9, object.getPhotostudioId());
+            ps.setDouble(10, object.getTotalPrice());
 
             ps.executeUpdate();
 
@@ -70,6 +72,8 @@ public class OrderDAOImpl implements OrderDAO {
             if (rs.next()) {
                 id = rs.getInt(1);
             }
+
+            object.setId(id);
 
             LOGGER.info("id: " + id + " object: " + object);
 
@@ -91,16 +95,18 @@ public class OrderDAOImpl implements OrderDAO {
 
             ps.setDate(1, Date.valueOf(updated.getBooking().toLocalDate()));
             ps.setInt(2, updated.getDressRoomId());
-            ps.setInt(3, updated.getStudioId());
-            ps.setInt(4, updated.getPhotographerId());
-            ps.setInt(5, updated.getVisagisteId());
-            ps.setInt(6, updated.getHairdresserId());
-            ps.setInt(7, updated.getRateId());
-            ps.setInt(8, updated.getPhotostudioId());
-            ps.setDouble(9, updated.getTotalPrice());
-            ps.setInt(10, id);
+            ps.setInt(3, updated.getClientId());
+            ps.setInt(4, updated.getStudioId());
+            ps.setInt(5, updated.getPhotographerId());
+            ps.setInt(6, updated.getVisagisteId());
+            ps.setInt(7, updated.getHairdresserId());
+            ps.setInt(8, updated.getRateId());
+            ps.setInt(9, updated.getPhotostudioId());
+            ps.setDouble(10, updated.getTotalPrice());
+            ps.setInt(11, id);
 
             ps.executeUpdate();
+            LOGGER.info("Updated id - " + id);
 
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -117,8 +123,9 @@ public class OrderDAOImpl implements OrderDAO {
         try {
             connection = ConnectionUtil.getConnection();
             ps = connection.prepareStatement(DELETE);
-            ps.setLong(1, id);
+            ps.setInt(1, id);
             ps.executeUpdate();
+            LOGGER.info("Deleted id - " + id);
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         } finally {
@@ -147,14 +154,15 @@ public class OrderDAOImpl implements OrderDAO {
                 order.setBooking(dateTime);
 
                 order.setClientId(rs.getInt("client_id"));
-                order.setClientId(rs.getInt("dress_room_id"));
-                order.setClientId(rs.getInt("studio_id"));
-                order.setClientId(rs.getInt("ph_id"));
-                order.setClientId(rs.getInt("vs_id"));
-                order.setClientId(rs.getInt("hd_id"));
-                order.setClientId(rs.getInt("rate_id"));
-                order.setClientId(rs.getInt("ph_st_id"));
+                order.setDressRoomId(rs.getInt("dress_room_id"));
+                order.setStudioId(rs.getInt("studio_id"));
+                order.setPhotographerId(rs.getInt("ph_id"));
+                order.setVisagisteId(rs.getInt("vs_id"));
+                order.setHairdresserId(rs.getInt("hd_id"));
+                order.setRateId(rs.getInt("rate_id"));
+                order.setPhotostudioId(rs.getInt("ph_st_id"));
                 order.setTotalPrice(rs.getDouble("order_total_price"));
+                LOGGER.info("Get by id");
                 return order;
             }
 
@@ -187,16 +195,17 @@ public class OrderDAOImpl implements OrderDAO {
                 LocalDateTime dateTime = LocalDateTime.parse(dateParsed, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                 order.setBooking(dateTime);
                 order.setClientId(rs.getInt("client_id"));
-                order.setClientId(rs.getInt("dress_room_id"));
-                order.setClientId(rs.getInt("studio_id"));
-                order.setClientId(rs.getInt("ph_id"));
-                order.setClientId(rs.getInt("vs_id"));
-                order.setClientId(rs.getInt("hd_id"));
-                order.setClientId(rs.getInt("rate_id"));
-                order.setClientId(rs.getInt("ph_st_id"));
+                order.setDressRoomId(rs.getInt("dress_room_id"));
+                order.setStudioId(rs.getInt("studio_id"));
+                order.setPhotographerId(rs.getInt("ph_id"));
+                order.setVisagisteId(rs.getInt("vs_id"));
+                order.setHairdresserId(rs.getInt("hd_id"));
+                order.setRateId(rs.getInt("rate_id"));
+                order.setPhotostudioId(rs.getInt("ph_st_id"));
                 order.setTotalPrice(rs.getDouble("order_total_price"));
                 orders.add(order);
             }
+            LOGGER.info("Get All");
             return orders;
 
         } catch (SQLException e) {

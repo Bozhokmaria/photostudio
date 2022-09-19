@@ -6,10 +6,7 @@ import com.solvd.model.Visagiste;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +15,9 @@ public class VisagisteDAOImpl implements VisagisteDAO {
     private static final Logger LOGGER = LogManager.getLogger(VisagisteDAOImpl.class);
 
     private static final String INSERT = "INSERT INTO visagiste " +
-            "visagiste.vs_first_name, " +
+            "(visagiste.vs_first_name, " +
             "visagiste.vs_last_name, " +
-            "visagiste.vs_price " +
+            "visagiste.vs_price) " +
             "VALUES (?,?,?)";
 
     private static final String UPDATE = "UPDATE visagiste " +
@@ -40,7 +37,7 @@ public class VisagisteDAOImpl implements VisagisteDAO {
         PreparedStatement ps = null;
         try {
             connection = ConnectionUtil.getConnection();
-            ps = connection.prepareStatement(INSERT);
+            ps = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, object.getFirstName());
             ps.setString(2, object.getLastName());
             ps.setDouble(3, object.getPrice());

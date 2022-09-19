@@ -6,11 +6,7 @@ import com.solvd.model.Country;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.management.AttributeNotFoundException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +15,7 @@ public class CountryDAOImpl implements CountryDAO {
     private static final Logger LOGGER = LogManager.getLogger(CountryDAOImpl.class);
 
     private static final String INSERT = "INSERT INTO country " +
-            "country.country_name " +
+            "(country.country_name) " +
             "VALUES (?)";
 
     private static final String UPDATE = "UPDATE country " +
@@ -38,7 +34,7 @@ public class CountryDAOImpl implements CountryDAO {
         PreparedStatement ps = null;
         try {
             connection = ConnectionUtil.getConnection();
-            ps = connection.prepareStatement(INSERT);
+            ps = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, country.getName());
             ps.executeUpdate();
 

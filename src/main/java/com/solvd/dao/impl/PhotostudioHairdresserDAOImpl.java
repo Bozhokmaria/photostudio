@@ -1,8 +1,8 @@
 package com.solvd.dao.impl;
 
 import com.solvd.connection.ConnectionUtil;
-import com.solvd.dao.interfaces.LocationDAO;
-import com.solvd.model.Location;
+import com.solvd.dao.interfaces.PhotostudioHairdresserDAO;
+import com.solvd.model.PhotostudioHairdresser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,34 +10,36 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LocationDAOImpl implements LocationDAO {
+public class PhotostudioHairdresserDAOImpl implements PhotostudioHairdresserDAO {
 
-    private static final Logger LOGGER = LogManager.getLogger(LocationDAOImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(PhotostudioHairdresserDAOImpl.class);
 
-    private static final String INSERT = "INSERT INTO location " +
-            "(location.loc_address_line, " +
-            "location.loc_city_id) " +
+    private static final String INSERT = "INSERT INTO photostudio_hairdresser " +
+            "(ph_st_id, " +
+            "hd_id) " +
             "VALUES (?,?)";
 
-    private static final String UPDATE = "UPDATE location " +
-            "SET location.loc_address_line=?, " +
-            "location.loc_city_id=? " +
-            "WHERE location.loc_id=?";
+    private static final String UPDATE = "UPDATE photostudio_hairdresser " +
+            "SET ph_st_id=?, " +
+            "hd_id=? " +
+            "WHERE ph_hd_id=?";
 
-    private static final String DELETE = "DELETE FROM location WHERE loc_id=?";
+    private static final String DELETE = "DELETE FROM photostudio_hairdresser WHERE ph_hd_id=?";
 
-    private static final String GET_BY_ID = "SELECT * FROM location WHERE loc_id=?";
+    private static final String GET_BY_ID = "SELECT * FROM photostudio_hairdresser WHERE ph_hd_id=?";
 
-    private static final String GET_ALL = "SELECT * FROM location";
+    private static final String GET_ALL = "SELECT * FROM photostudio_hairdresser";
+
+
     @Override
-    public void add(Location object) {
+    public void add(PhotostudioHairdresser object) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
             connection = ConnectionUtil.getConnection();
             ps = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, object.getAddress());
-            ps.setInt(2, object.getCityId());
+            ps.setInt(1, object.getPhotostudioId());
+            ps.setInt(2, object.getHairdresserId());
 
             ps.executeUpdate();
 
@@ -58,15 +60,15 @@ public class LocationDAOImpl implements LocationDAO {
     }
 
     @Override
-    public void update(int id, Location updated) {
+    public void update(int id, PhotostudioHairdresser updated) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
             connection = ConnectionUtil.getConnection();
             ps = connection.prepareStatement(UPDATE);
 
-            ps.setString(1, updated.getAddress());
-            ps.setInt(2, updated.getCityId());
+            ps.setInt(1, updated.getPhotostudioId());
+            ps.setInt(2, updated.getHairdresserId());
             ps.setInt(3, id);
 
             ps.executeUpdate();
@@ -97,21 +99,20 @@ public class LocationDAOImpl implements LocationDAO {
     }
 
     @Override
-    public Location getById(int id) {
+    public PhotostudioHairdresser getById(int id) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
             connection = ConnectionUtil.getConnection();
             ps = connection.prepareStatement(GET_BY_ID);
             ps.setInt(1, id);
-
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                Location location = new Location();
-                location.setId(rs.getInt("loc_id"));
-                location.setAddress(rs.getString("loc_address_line"));
-                location.setCityId(rs.getInt("loc_city_id"));
-                return location;
+                PhotostudioHairdresser photostudioHairdresser = new PhotostudioHairdresser();
+                photostudioHairdresser.setId(rs.getInt("ph_hd_id"));
+                photostudioHairdresser.setPhotostudioId(rs.getInt("ph_st_id"));
+                photostudioHairdresser.setHairdresserId(rs.getInt("hd_id"));
+                return photostudioHairdresser;
             }
 
         } catch (SQLException e) {
@@ -124,24 +125,24 @@ public class LocationDAOImpl implements LocationDAO {
     }
 
     @Override
-    public List<Location> getAll() {
+    public List<PhotostudioHairdresser> getAll() {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
             connection = ConnectionUtil.getConnection();
             ps = connection.prepareStatement(GET_ALL);
-            List<Location> locations = new ArrayList<>();
+            List<PhotostudioHairdresser> photostudioHairdressers = new ArrayList<>();
 
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Location location = new Location();
-                location.setId(rs.getInt("loc_id"));
-                location.setAddress(rs.getString("loc_address_line"));
-                location.setCityId(rs.getInt("loc_city_id"));
-                locations.add(location);
+                PhotostudioHairdresser photostudioHairdresser = new PhotostudioHairdresser();
+                photostudioHairdresser.setId(rs.getInt("ph_hd_id"));
+                photostudioHairdresser.setPhotostudioId(rs.getInt("ph_st_id"));
+                photostudioHairdresser.setHairdresserId(rs.getInt("hd_id"));
+                photostudioHairdressers.add(photostudioHairdresser);
             }
-            return locations;
+            return photostudioHairdressers;
 
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());

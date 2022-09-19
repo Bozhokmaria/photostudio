@@ -6,11 +6,7 @@ import com.solvd.model.Abonement;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.management.AttributeNotFoundException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +38,7 @@ public class AbonementDAOImpl implements AbonementDAO {
         PreparedStatement ps = null;
         try {
             connection = ConnectionUtil.getConnection();
-            ps = connection.prepareStatement(INSERT);
+            ps = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, abonement.getClientId());
             ps.setString(2, abonement.getName());
             ps.setInt(3, abonement.getPhotosessionAmount());

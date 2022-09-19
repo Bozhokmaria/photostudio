@@ -1,6 +1,5 @@
 package com.solvd.dao.interfaces;
 
-import javax.management.AttributeNotFoundException;
 import java.util.List;
 
 public interface BaseDAO <T> {

@@ -6,11 +6,7 @@ import com.solvd.model.DressingRoom;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.management.AttributeNotFoundException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +15,9 @@ public class DressingRoomDAOImpl implements DressingRoomDAO {
     private static final Logger LOGGER = LogManager.getLogger(DressingRoomDAOImpl.class);
 
     private static final String INSERT = "INSERT INTO dressing_room " +
-            "dressing_room.dress_room_name, " +
+            "(dressing_room.dress_room_name, " +
             "dressing_room.dress_room_price, " +
-            "dressing_room.dress_room_ph_st " +
+            "dressing_room.dress_room_ph_st) " +
             "VALUES (?,?,?)";
 
     private static final String UPDATE = "UPDATE dressing_room " +
@@ -41,7 +37,7 @@ public class DressingRoomDAOImpl implements DressingRoomDAO {
         PreparedStatement ps = null;
         try {
             connection = ConnectionUtil.getConnection();
-            ps = connection.prepareStatement(INSERT);
+            ps = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, object.getName());
             ps.setDouble(2, object.getPrice());
             ps.setInt(3, object.getPhotostudioId());

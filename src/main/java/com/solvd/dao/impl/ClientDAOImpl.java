@@ -6,11 +6,7 @@ import com.solvd.model.Client;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.management.AttributeNotFoundException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +16,10 @@ public class ClientDAOImpl implements ClientDAO {
     private static final Logger LOGGER = LogManager.getLogger(ClientDAOImpl.class);
 
     private static final String INSERT = "INSERT INTO client " +
-            "client.client_email, " +
+            "(client.client_email, " +
             "client.client_first_name, " +
             "client.client_last_name, " +
-            "client.client_password " +
+            "client.client_password) " +
             "VALUES (?, ?, ?, ?)";
 
     private static final String UPDATE = "UPDATE client " +
@@ -45,7 +41,7 @@ public class ClientDAOImpl implements ClientDAO {
         PreparedStatement ps = null;
         try {
             connection = ConnectionUtil.getConnection();
-            ps = connection.prepareStatement(INSERT);
+            ps = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, client.getEmail());
             ps.setString(2, client.getFirstName());
             ps.setString(3, client.getLastName());

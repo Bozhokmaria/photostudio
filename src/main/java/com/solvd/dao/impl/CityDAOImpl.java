@@ -6,10 +6,7 @@ import com.solvd.model.City;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +15,8 @@ public class CityDAOImpl implements CityDAO {
     private static final Logger LOGGER = LogManager.getLogger(CityDAOImpl.class);
 
     private static final String INSERT = "INSERT INTO city " +
-            "city.city_name, " +
-            "city.country_id " +
+            "(city.city_name, " +
+            "city.country_id) " +
             "VALUES (?, ?)";
 
     private static final String UPDATE = "UPDATE city " +
@@ -39,7 +36,7 @@ public class CityDAOImpl implements CityDAO {
         PreparedStatement ps = null;
         try {
             connection = ConnectionUtil.getConnection();
-            ps = connection.prepareStatement(INSERT);
+            ps = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, city.getName());
             ps.setInt(2, city.getCountryId());
             ps.executeUpdate();
