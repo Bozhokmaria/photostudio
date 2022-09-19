@@ -2,18 +2,13 @@ package com.solvd.staxtask;
 
 import java.io.FileReader;
 import java.io.Reader;
-import java.util.Iterator;
 import javax.xml.namespace.QName;
-import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.events.Attribute;
-import javax.xml.stream.events.EndElement;
-import javax.xml.stream.events.StartElement;
-import javax.xml.stream.events.XMLEvent;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamReader;
 
 public class StAXReader {
-
-    public static void main(String args[]) {
+    public static void main(String args[]){
         try {
             String filePath = "src/main/java/com/solvd/staxtask/input.xml";
 
@@ -22,28 +17,27 @@ public class StAXReader {
             XMLInputFactory xmlInputFactory =
                     XMLInputFactory.newInstance();
 
-            XMLEventReader xmlEventReader =
-                    xmlInputFactory.createXMLEventReader(fileReader);
+            XMLStreamReader xmlStreamReader  =
+                    xmlInputFactory.createXMLStreamReader(fileReader);
 
-            while (xmlEventReader.hasNext()) {
-                XMLEvent xmlEvent = xmlEventReader.nextEvent();
-                if (xmlEvent.isStartElement()) {
-                    StartElement startElement = xmlEvent.asStartElement();
-                    System.out.println("Start Element: " + startElement.getName());
+            while(xmlStreamReader.hasNext()){
+                int xmlEvent = xmlStreamReader.next();
 
-                    Iterator iterator = startElement.getAttributes();
-                    while (iterator.hasNext()) {
-                        Attribute attribute = (Attribute) iterator.next();
-                        QName name = attribute.getName();
-                        String value = attribute.getValue();
+                if (xmlEvent == XMLStreamConstants.START_ELEMENT) {
+                    System.out.println("Start Element: "
+                            +xmlStreamReader.getLocalName());
+                    int attributes = xmlStreamReader.getAttributeCount();
+                    for(int i=0; i<attributes; i++){
+                        QName name = xmlStreamReader.getAttributeName(i);
+                        String value=xmlStreamReader.getAttributeValue(i);
                         System.out.println("Attribute name: " + name);
                         System.out.println("Attribute value: " + value);
                     }
                 }
 
-                if (xmlEvent.isEndElement()) {
-                    EndElement endElement = xmlEvent.asEndElement();
-                    System.out.println("End Element: " + endElement.getName());
+                if (xmlEvent == XMLStreamConstants.END_ELEMENT) {
+                    System.out.println("End Element: "
+                            +xmlStreamReader.getLocalName());
                 }
             }
         } catch (Exception e) {
