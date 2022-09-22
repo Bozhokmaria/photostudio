@@ -59,7 +59,7 @@ public class PhotostudioPhotographerDAOImpl implements PhotostudioPhotographerDA
     }
 
     @Override
-    public void update(int id, PhotostudioPhotographer updated) {
+    public void update(PhotostudioPhotographer updated) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -68,7 +68,7 @@ public class PhotostudioPhotographerDAOImpl implements PhotostudioPhotographerDA
 
             ps.setInt(1, updated.getPhotostudioId());
             ps.setInt(2, updated.getPhotographerId());
-            ps.setInt(3, id);
+            ps.setInt(3, updated.getId());
 
             ps.executeUpdate();
 

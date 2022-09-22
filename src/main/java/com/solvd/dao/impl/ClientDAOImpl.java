@@ -66,7 +66,7 @@ public class ClientDAOImpl implements ClientDAO {
     }
 
     @Override
-    public void update(int id, Client updated) {
+    public void update(Client updated) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -77,7 +77,7 @@ public class ClientDAOImpl implements ClientDAO {
             ps.setString(2, updated.getFirstName());
             ps.setString(3, updated.getLastName());
             ps.setString(4, updated.getPassword());
-            ps.setInt(5, id);
+            ps.setInt(5, updated.getId());
 
             ps.executeUpdate();
 

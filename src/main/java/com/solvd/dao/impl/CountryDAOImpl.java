@@ -55,7 +55,7 @@ public class CountryDAOImpl implements CountryDAO {
     }
 
     @Override
-    public void update(int id, Country updated) {
+    public void update(Country updated) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -63,7 +63,7 @@ public class CountryDAOImpl implements CountryDAO {
             ps = connection.prepareStatement(UPDATE);
 
             ps.setString(1, updated.getName());
-            ps.setInt(2, id);
+            ps.setInt(2, updated.getId());
 
             ps.executeUpdate();
 

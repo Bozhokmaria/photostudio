@@ -61,7 +61,7 @@ public class VisagisteDAOImpl implements VisagisteDAO {
     }
 
     @Override
-    public void update(int id, Visagiste updated) {
+    public void update(Visagiste updated) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -71,7 +71,7 @@ public class VisagisteDAOImpl implements VisagisteDAO {
             ps.setString(1, updated.getFirstName());
             ps.setString(2, updated.getLastName());
             ps.setDouble(3, updated.getPrice());
-            ps.setInt(4, id);
+            ps.setInt(4, updated.getId());
 
             ps.executeUpdate();
 

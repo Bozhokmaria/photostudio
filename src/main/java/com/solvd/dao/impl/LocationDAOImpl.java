@@ -58,7 +58,7 @@ public class LocationDAOImpl implements LocationDAO {
     }
 
     @Override
-    public void update(int id, Location updated) {
+    public void update(Location updated) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -67,7 +67,7 @@ public class LocationDAOImpl implements LocationDAO {
 
             ps.setString(1, updated.getAddress());
             ps.setInt(2, updated.getCityId());
-            ps.setInt(3, id);
+            ps.setInt(3, updated.getId());
 
             ps.executeUpdate();
 

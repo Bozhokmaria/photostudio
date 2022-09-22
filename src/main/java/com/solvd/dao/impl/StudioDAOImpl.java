@@ -63,7 +63,7 @@ public class StudioDAOImpl implements StudioDAO {
     }
 
     @Override
-    public void update(int id, Studio updated) {
+    public void update(Studio updated) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -73,7 +73,7 @@ public class StudioDAOImpl implements StudioDAO {
             ps.setInt(1, updated.getPhotostudioId());
             ps.setString(2, updated.getName());
             ps.setDouble(3, updated.getPrice());
-            ps.setInt(4, id);
+            ps.setInt(4, updated.getId());
 
             ps.executeUpdate();
 

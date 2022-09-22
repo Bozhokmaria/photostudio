@@ -60,7 +60,7 @@ public class RateDAOImpl implements RateDAO {
     }
 
     @Override
-    public void update(int id, Rate updated) {
+    public void update(Rate updated) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -69,7 +69,7 @@ public class RateDAOImpl implements RateDAO {
 
             ps.setString(1, updated.getName());
             ps.setDouble(2, updated.getPercentage());
-            ps.setInt(3, id);
+            ps.setInt(3, updated.getId());
 
             ps.executeUpdate();
 

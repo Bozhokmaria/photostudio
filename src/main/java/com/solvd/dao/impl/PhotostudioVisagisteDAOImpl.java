@@ -58,7 +58,7 @@ public class PhotostudioVisagisteDAOImpl implements PhotostudioVisagisteDAO {
     }
 
     @Override
-    public void update(int id, PhotostudioVisagiste updated) {
+    public void update(PhotostudioVisagiste updated) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -67,7 +67,7 @@ public class PhotostudioVisagisteDAOImpl implements PhotostudioVisagisteDAO {
 
             ps.setInt(1, updated.getPhotostudioId());
             ps.setInt(2, updated.getVisagisteId());
-            ps.setInt(3, id);
+            ps.setInt(3, updated.getId());
 
             ps.executeUpdate();
 

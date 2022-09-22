@@ -61,7 +61,7 @@ public class HairdresserDAOImpl implements HairdresserDAO {
     }
 
     @Override
-    public void update(int id, Hairdresser updated) {
+    public void update(Hairdresser updated) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -71,7 +71,7 @@ public class HairdresserDAOImpl implements HairdresserDAO {
             ps.setString(1, updated.getFirstName());
             ps.setString(2, updated.getLastName());
             ps.setDouble(3, updated.getPrice());
-            ps.setInt(4, id);
+            ps.setInt(4, updated.getId());
 
             ps.executeUpdate();
 

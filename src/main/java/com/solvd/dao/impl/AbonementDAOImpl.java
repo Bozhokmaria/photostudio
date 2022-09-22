@@ -62,7 +62,7 @@ public class AbonementDAOImpl implements AbonementDAO {
     }
 
     @Override
-    public void update(int id, Abonement updated) {
+    public void update(Abonement updated) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -73,7 +73,7 @@ public class AbonementDAOImpl implements AbonementDAO {
             ps.setString(2, updated.getName());
             ps.setInt(3, updated.getPhotosessionAmount());
             ps.setDouble(4, updated.getPrice());
-            ps.setInt(5, id);
+            ps.setInt(5, updated.getId());
 
             ps.executeUpdate();
 

@@ -60,7 +60,7 @@ public class PhotostudioHairdresserDAOImpl implements PhotostudioHairdresserDAO 
     }
 
     @Override
-    public void update(int id, PhotostudioHairdresser updated) {
+    public void update(PhotostudioHairdresser updated) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -69,7 +69,7 @@ public class PhotostudioHairdresserDAOImpl implements PhotostudioHairdresserDAO 
 
             ps.setInt(1, updated.getPhotostudioId());
             ps.setInt(2, updated.getHairdresserId());
-            ps.setInt(3, id);
+            ps.setInt(3, updated.getId());
 
             ps.executeUpdate();
 

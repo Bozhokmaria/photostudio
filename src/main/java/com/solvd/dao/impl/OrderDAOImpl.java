@@ -86,7 +86,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public void update(int id, Order updated) {
+    public void update(Order updated) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -103,10 +103,10 @@ public class OrderDAOImpl implements OrderDAO {
             ps.setInt(8, updated.getRateId());
             ps.setInt(9, updated.getPhotostudioId());
             ps.setDouble(10, updated.getTotalPrice());
-            ps.setInt(11, id);
+            ps.setInt(11, updated.getId());
 
             ps.executeUpdate();
-            LOGGER.info("Updated id - " + id);
+            LOGGER.info("Updated id - " + updated.getId());
 
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());

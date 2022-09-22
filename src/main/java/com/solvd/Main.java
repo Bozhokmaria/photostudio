@@ -29,7 +29,6 @@ public class Main {
             LOGGER.info(order);
         }
 
-
         LOGGER.info("-----Get by Id-----");
         LOGGER.info(orderDAO.getById(2));
 
@@ -63,7 +62,7 @@ public class Main {
         orderUpdate.setPhotographerId(2);
         orderUpdate.setTotalPrice(1400.00);
 
-        orderDAO.update(1, orderUpdate);
+        orderDAO.update(orderUpdate);
 
         for(Order order : orderDAO.getAll()) {
             LOGGER.info(order);

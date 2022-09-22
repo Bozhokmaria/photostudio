@@ -61,7 +61,7 @@ public class DressingRoomDAOImpl implements DressingRoomDAO {
     }
 
     @Override
-    public void update(int id, DressingRoom updated) {
+    public void update(DressingRoom updated) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -70,7 +70,7 @@ public class DressingRoomDAOImpl implements DressingRoomDAO {
             ps.setString(1, updated.getName());
             ps.setDouble(2, updated.getPrice());
             ps.setInt(3, updated.getPhotostudioId());
-            ps.setInt(4, id);
+            ps.setInt(4, updated.getId());
 
             ps.executeUpdate();
 

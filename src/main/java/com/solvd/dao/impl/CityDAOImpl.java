@@ -58,7 +58,7 @@ public class CityDAOImpl implements CityDAO {
     }
 
     @Override
-    public void update(int id, City updated) {
+    public void update(City updated) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -67,7 +67,7 @@ public class CityDAOImpl implements CityDAO {
 
             ps.setString(1, updated.getName());
             ps.setInt(2, updated.getCountryId());
-            ps.setInt(3, id);
+            ps.setInt(3, updated.getId());
 
             ps.executeUpdate();
 
@@ -86,7 +86,7 @@ public class CityDAOImpl implements CityDAO {
         try {
             connection = ConnectionUtil.getConnection();
             ps = connection.prepareStatement(DELETE);
-            ps.setLong(1, id);
+            ps.setInt(1, id);
             ps.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());

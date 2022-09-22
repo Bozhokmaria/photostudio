@@ -60,7 +60,7 @@ public class PhotostudioDAOImpl implements PhotostudioDAO {
     }
 
     @Override
-    public void update(int id, Photostudio updated) {
+    public void update(Photostudio updated) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -69,7 +69,7 @@ public class PhotostudioDAOImpl implements PhotostudioDAO {
 
             ps.setString(1, updated.getName());
             ps.setInt(2, updated.getLocationId());
-            ps.setInt(3, id);
+            ps.setInt(3, updated.getId());
 
             ps.executeUpdate();
 
