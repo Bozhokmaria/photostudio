@@ -20,7 +20,7 @@ public class Main {
         Book book = new Book("Petar Tahchiev Felipe Leme Vincent Massol Gary Gregory", "JUnit in Action", 230, new Date());
 
         try {
-            objectMapper.writeValue(new File("src/main/java/com/solvd/jacksonTask/book.json"), book);
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/main/java/com/solvd/jacksonTask/book.json"), book);
         } catch (StreamWriteException e) {
             LOGGER.error(e.getMessage());
         } catch (DatabindException e) {
