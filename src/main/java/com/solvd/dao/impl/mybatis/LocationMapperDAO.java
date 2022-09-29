@@ -2,7 +2,6 @@ package com.solvd.dao.impl.mybatis;
 
 import com.solvd.connection.MyBatisUtil;
 import com.solvd.dao.interfaces.LocationDAO;
-import com.solvd.model.Country;
 import com.solvd.model.Location;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
@@ -12,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class LocationMapperDAO implements LocationDAO {
-    private final static Logger LOGGER = LogManager.getLogger(CityMapperDAO.class);
+    private final static Logger LOGGER = LogManager.getLogger(LocationMapperDAO.class);
 
     @Override
     public Location getById(int id) {

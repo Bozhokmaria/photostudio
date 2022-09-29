@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class StudioMapperDAO implements StudioDAO {
-    private final static Logger LOGGER = LogManager.getLogger(CityMapperDAO.class);
+    private final static Logger LOGGER = LogManager.getLogger(StudioMapperDAO.class);
 
     @Override
     public Studio getById(int id) {

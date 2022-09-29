@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PhotostudioMapperDAO implements PhotostudioDAO {
-    private final static Logger LOGGER = LogManager.getLogger(CityMapperDAO.class);
+    private final static Logger LOGGER = LogManager.getLogger(PhotostudioMapperDAO.class);
 
     @Override
     public Photostudio getById(int id) {
