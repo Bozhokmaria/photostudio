@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="src.main.resources.mappers.PhotostudioMapper">
+    <resultMap id="photostudio" type="com.solvd.model.Photostudio">
+        <id property="id" column="ph_st_id"/>
+        <result property="name" column="ph_st_name"/>
+        <result property="locationId" column="ph_st_loc_id"/>
+    </resultMap>
+    <select id="getById" parameterType="int" resultMap="photostudio">
+        SELECT * FROM photostudio WHERE ph_st_id=#{id}
+    </select>
+    <select id="getAll" resultMap="photostudio">
+        SELECT * FROM photostudio
+    </select>
+    <insert id="add">
+        INSERT INTO photostudio(ph_st_name, ph_st_loc_id) VALUES (#{name}, #{locationId})
+    </insert>
+    <update id="update">
+        UPDATE photostudio SET ph_st_name=#{name}, ph_st_loc_id=#{locationId} WHERE ph_st_id=#{id}
+    </update>
+    <delete id="delete">
+        DELETE FROM photostudio WHERE ph_st_id=#{id}
+    </delete>
+</mapper>

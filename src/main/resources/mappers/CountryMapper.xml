@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="src.main.resources.mappers.CountryMapper">
+    <resultMap id="country" type="com.solvd.model.Country">
+        <id property="id" column="country_id"/>
+        <result property="name" column="country_name"/>
+    </resultMap>
+    <select id="getById" parameterType="int" resultMap="country">
+        SELECT * FROM country WHERE country_id=#{id}
+    </select>
+    <select id="getAll" resultMap="country">
+        SELECT * FROM country
+    </select>
+    <insert id="add">
+        INSERT INTO country(country_name) VALUES (#{id}, #{name})
+    </insert>
+    <update id="update">
+        UPDATE country SET country_name=#{name} WHERE country_id=#{id}
+    </update>
+    <delete id="delete">
+        DELETE FROM country WHERE country_id=#{id}
+    </delete>
+</mapper>

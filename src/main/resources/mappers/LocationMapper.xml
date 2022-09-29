@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="src.main.resources.mappers.LocationMapper">
+    <resultMap id="location" type="com.solvd.model.Location">
+        <id property="id" column="loc_id"/>
+        <result property="address" column="loc_address_line"/>
+        <result property="cityId" column="loc_city_id"/>
+    </resultMap>
+    <select id="getById" parameterType="int" resultMap="location">
+        SELECT * FROM location WHERE loc_id=#{id}
+    </select>
+    <select id="getAll" resultMap="location">
+        SELECT * FROM location
+    </select>
+    <insert id="add">
+        INSERT INTO location(loc_address_line, loc_city_id) VALUES (#{address}, #{cityId})
+    </insert>
+    <update id="update">
+        UPDATE location SET loc_address_line=#{address}, , loc_city_id=#{cityId} WHERE loc_id=#{id}
+    </update>
+    <delete id="delete">
+        DELETE FROM location WHERE loc_id=#{id}
+    </delete>
+</mapper>
