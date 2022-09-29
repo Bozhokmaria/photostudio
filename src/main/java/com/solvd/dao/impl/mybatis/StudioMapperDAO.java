@@ -53,4 +53,5 @@ public class StudioMapperDAO implements StudioDAO {
         session.delete("src.main.resources.mappers.StudioMapper.delete", id);
         session.commit();
         session.close();
-    }}
+    }
+}

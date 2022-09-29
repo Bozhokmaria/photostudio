@@ -27,7 +27,6 @@ public class LocationMapperDAO implements LocationDAO {
         SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
         locations = session.selectList("src.main.resources.mappers.LocationMapper.getAll", locations);
         session.close();
-        locations.forEach(LOGGER::info);
         return locations;
     }
 

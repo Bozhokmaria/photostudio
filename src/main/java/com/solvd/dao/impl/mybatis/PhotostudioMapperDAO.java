@@ -27,7 +27,6 @@ public class PhotostudioMapperDAO implements PhotostudioDAO {
         SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
         photostudios = session.selectList("src.main.resources.mappers.PhotostudioMapper.getAll", photostudios);
         session.close();
-        photostudios.forEach(LOGGER::info);
         return photostudios;
     }
 

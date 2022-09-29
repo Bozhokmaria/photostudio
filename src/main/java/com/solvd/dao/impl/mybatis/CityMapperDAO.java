@@ -26,7 +26,6 @@ public class CityMapperDAO implements CityDAO {
         SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
         cities = session.selectList("src.main.resources.mappers.CityMapper.getAll", cities);
         session.close();
-        cities.forEach(LOGGER::info);
         return cities;
     }
 

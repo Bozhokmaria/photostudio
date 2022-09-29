@@ -27,7 +27,6 @@ public class CountryMapperDAO implements CountryDAO {
         SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
         countries = session.selectList("src.main.resources.mappers.CountryMapper.getAll", countries);
         session.close();
-        countries.forEach(LOGGER::info);
         return countries;
     }
 
