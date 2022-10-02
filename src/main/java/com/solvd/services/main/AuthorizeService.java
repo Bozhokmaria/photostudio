@@ -19,7 +19,7 @@ public class AuthorizeService {
 
     private static final Logger LOGGER = LogManager.getLogger(AuthorizeService.class);
 
-    public boolean loginNewClient() {
+    public int loginNewClient() {
 
         Client client = new Client();
 
@@ -73,16 +73,17 @@ public class AuthorizeService {
         List<Client> clients = clientDAO.getAll();
         if (clients.contains(client)) {
             LOGGER.error("Such client already exists");
-            return false;
+           Client clientIn = clients.stream().filter(client1 -> client1.equals(client)).findAny().get();
+            return clientIn.getId();
         } else {
-            clientDAO.add(client);
+          int id = clientDAO.add(client);
             LOGGER.info("Successful registration. Welcome! {} {} ", client.getFirstName(), client.getLastName());
-            return true;
+            return id;
         }
     }
 
 
-    public boolean loginOldClient() {
+    public int loginOldClient() {
 
         Client client = new Client();
         Scanner scanner = new Scanner(System.in);
@@ -113,10 +114,10 @@ public class AuthorizeService {
 
         if(inSystemClient != null){
             LOGGER.info("Successful login. Welcome! {} {} ", inSystemClient.getFirstName(), inSystemClient.getLastName());
-            return true;
+            return inSystemClient.getId();
         } else {
             LOGGER.error("No such client in the system");
-            return false;
+            return 0;
         }
     }
 }
