@@ -48,7 +48,7 @@ public class OrderDAOImpl implements OrderDAO {
     private static final String GET_ALL = "SELECT * FROM photostudio.order";
 
     @Override
-    public void add(Order object) {
+    public int add(Order object) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -71,11 +71,10 @@ public class OrderDAOImpl implements OrderDAO {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 id = rs.getInt(1);
+                object.setId(id);
+                LOGGER.info("id: " + id + " object: " + object);
+                return id;
             }
-
-            object.setId(id);
-
-            LOGGER.info("id: " + id + " object: " + object);
 
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -83,6 +82,7 @@ public class OrderDAOImpl implements OrderDAO {
             ConnectionUtil.close(ps);
             ConnectionUtil.close(connection);
         }
+        return 0;
     }
 
     @Override

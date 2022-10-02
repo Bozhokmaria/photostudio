@@ -36,7 +36,7 @@ public class ClientDAOImpl implements ClientDAO {
     private static final String GET_ALL = "SELECT * FROM client";
 
     @Override
-    public void add(Client client) {
+    public int add(Client client) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -53,9 +53,11 @@ public class ClientDAOImpl implements ClientDAO {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 id = rs.getInt(1);
+                client.setId(id);
+                LOGGER.info("id: " + id + " object: " + client);
+                return id;
             }
 
-            LOGGER.info("id: " + id + " object: " + client);
 
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -63,6 +65,8 @@ public class ClientDAOImpl implements ClientDAO {
             ConnectionUtil.close(ps);
             ConnectionUtil.close(connection);
         }
+
+        return 0;
     }
 
     @Override

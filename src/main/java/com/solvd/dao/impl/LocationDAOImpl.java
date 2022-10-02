@@ -30,7 +30,7 @@ public class LocationDAOImpl implements LocationDAO {
 
     private static final String GET_ALL = "SELECT * FROM location";
     @Override
-    public void add(Location object) {
+    public int add(Location object) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -45,9 +45,10 @@ public class LocationDAOImpl implements LocationDAO {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 id = rs.getInt(1);
+                object.setId(id);
+                LOGGER.info("id: " + id + " object: " + object);
+                return id;
             }
-
-            LOGGER.info("id: " + id + " object: " + object);
 
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -55,6 +56,7 @@ public class LocationDAOImpl implements LocationDAO {
             ConnectionUtil.close(ps);
             ConnectionUtil.close(connection);
         }
+        return 0;
     }
 
     @Override

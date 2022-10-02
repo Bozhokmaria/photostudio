@@ -32,7 +32,7 @@ public class RateDAOImpl implements RateDAO {
 
 
     @Override
-    public void add(Rate object) {
+    public int add(Rate object) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -47,9 +47,10 @@ public class RateDAOImpl implements RateDAO {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 id = rs.getInt(1);
+                object.setId(id);
+                LOGGER.info("id: " + id + " object: " + object);
+                return id;
             }
-
-            LOGGER.info("id: " + id + " object: " + object);
 
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -57,6 +58,7 @@ public class RateDAOImpl implements RateDAO {
             ConnectionUtil.close(ps);
             ConnectionUtil.close(connection);
         }
+        return 0;
     }
 
     @Override

@@ -31,7 +31,7 @@ public class CityDAOImpl implements CityDAO {
     private static final String GET_ALL = "SELECT * FROM city";
 
     @Override
-    public void add(City city) {
+    public int add(City city) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -45,9 +45,10 @@ public class CityDAOImpl implements CityDAO {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 id = rs.getInt(1);
+                city.setId(id);
+                LOGGER.info("id: " + id + " object: " + city);
+                return id;
             }
-
-            LOGGER.info("id: " + id + " object: " + city);
 
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -55,6 +56,7 @@ public class CityDAOImpl implements CityDAO {
             ConnectionUtil.close(ps);
             ConnectionUtil.close(connection);
         }
+        return 0;
     }
 
     @Override

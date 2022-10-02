@@ -1,6 +1,7 @@
 package com.solvd.dao.impl.mybatis;
 
 import com.solvd.connection.MyBatisUtil;
+import com.solvd.dao.interfaces.BaseBatisDAO;
 import com.solvd.dao.interfaces.PhotostudioDAO;
 import com.solvd.model.Photostudio;
 import org.apache.ibatis.session.SqlSession;
@@ -10,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PhotostudioMapperDAO implements PhotostudioDAO {
+public class PhotostudioMapperDAO implements BaseBatisDAO<Photostudio> {
     private final static Logger LOGGER = LogManager.getLogger(PhotostudioMapperDAO.class);
 
     @Override

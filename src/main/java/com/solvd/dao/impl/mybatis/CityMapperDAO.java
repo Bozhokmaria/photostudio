@@ -1,6 +1,8 @@
 package com.solvd.dao.impl.mybatis;
 
 import com.solvd.connection.MyBatisUtil;
+import com.solvd.dao.interfaces.BaseBatisDAO;
+import com.solvd.dao.interfaces.BaseDAO;
 import com.solvd.dao.interfaces.CityDAO;
 import com.solvd.model.City;
 import org.apache.ibatis.session.SqlSession;
@@ -9,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.LinkedList;
 import java.util.List;
-public class CityMapperDAO implements CityDAO {
+public class CityMapperDAO implements BaseBatisDAO<City> {
     private final static Logger LOGGER = LogManager.getLogger(CityMapperDAO.class);
 
     @Override

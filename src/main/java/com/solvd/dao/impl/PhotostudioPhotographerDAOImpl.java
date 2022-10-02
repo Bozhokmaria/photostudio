@@ -31,7 +31,7 @@ public class PhotostudioPhotographerDAOImpl implements PhotostudioPhotographerDA
 
 
     @Override
-    public void add(PhotostudioPhotographer object) {
+    public int add(PhotostudioPhotographer object) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -46,9 +46,10 @@ public class PhotostudioPhotographerDAOImpl implements PhotostudioPhotographerDA
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 id = rs.getInt(1);
+                object.setId(id);
+                LOGGER.info("id: " + id + " object: " + object);
+                return id;
             }
-
-            LOGGER.info("id: " + id + " object: " + object);
 
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -56,6 +57,7 @@ public class PhotostudioPhotographerDAOImpl implements PhotostudioPhotographerDA
             ConnectionUtil.close(ps);
             ConnectionUtil.close(connection);
         }
+        return 0;
     }
 
     @Override

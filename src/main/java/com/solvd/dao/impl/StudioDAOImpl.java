@@ -34,7 +34,7 @@ public class StudioDAOImpl implements StudioDAO {
     private static final String GET_ALL = "SELECT * FROM studio";
 
     @Override
-    public void add(Studio object) {
+    public int add(Studio object) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -50,9 +50,10 @@ public class StudioDAOImpl implements StudioDAO {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 id = rs.getInt(1);
+                object.setId(id);
+                LOGGER.info("id: " + id + " object: " + object);
+                return id;
             }
-
-            LOGGER.info("id: " + id + " object: " + object);
 
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -60,6 +61,7 @@ public class StudioDAOImpl implements StudioDAO {
             ConnectionUtil.close(ps);
             ConnectionUtil.close(connection);
         }
+        return 0;
     }
 
     @Override

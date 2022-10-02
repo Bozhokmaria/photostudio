@@ -29,7 +29,7 @@ public class CountryDAOImpl implements CountryDAO {
     private static final String GET_ALL = "SELECT * FROM country";
 
     @Override
-    public void add(Country country) {
+    public int add(Country country) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -42,9 +42,11 @@ public class CountryDAOImpl implements CountryDAO {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 id = rs.getInt(1);
+                country.setId(id);
+                LOGGER.info("id: " + id + " object: " + country);
+                return id;
             }
 
-            LOGGER.info("id: " + id + " object: " + country);
 
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -52,6 +54,8 @@ public class CountryDAOImpl implements CountryDAO {
             ConnectionUtil.close(ps);
             ConnectionUtil.close(connection);
         }
+        return 0;
+
     }
 
     @Override

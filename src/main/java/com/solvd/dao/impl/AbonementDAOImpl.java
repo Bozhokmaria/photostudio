@@ -33,7 +33,7 @@ public class AbonementDAOImpl implements AbonementDAO {
     private static final String GET_ALL = "SELECT * FROM abonement";
 
     @Override
-    public void add(Abonement abonement) {
+    public int add(Abonement abonement) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -50,8 +50,10 @@ public class AbonementDAOImpl implements AbonementDAO {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 id = rs.getInt(1);
+                abonement.setId(id);
+                LOGGER.info("id: " + id + " object: " + abonement);
+                return id;
             }
-            LOGGER.info("id: " + id + " object: " + abonement);
 
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -59,6 +61,7 @@ public class AbonementDAOImpl implements AbonementDAO {
             ConnectionUtil.close(ps);
             ConnectionUtil.close(connection);
         }
+        return 0;
     }
 
     @Override

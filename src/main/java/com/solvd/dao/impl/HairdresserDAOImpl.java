@@ -32,7 +32,7 @@ public class HairdresserDAOImpl implements HairdresserDAO {
     private static final String GET_ALL = "SELECT * FROM hairdresser";
 
     @Override
-    public void add(Hairdresser object) {
+    public int add(Hairdresser object) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -48,9 +48,10 @@ public class HairdresserDAOImpl implements HairdresserDAO {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 id = rs.getInt(1);
+                object.setId(id);
+                LOGGER.info("id: " + id + " object: " + object);
+                return id;
             }
-
-            LOGGER.info("id: " + id + " object: " + object);
 
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -58,6 +59,7 @@ public class HairdresserDAOImpl implements HairdresserDAO {
             ConnectionUtil.close(ps);
             ConnectionUtil.close(connection);
         }
+        return 0;
     }
 
     @Override

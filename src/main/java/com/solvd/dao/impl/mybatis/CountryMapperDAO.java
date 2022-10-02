@@ -1,6 +1,7 @@
 package com.solvd.dao.impl.mybatis;
 
 import com.solvd.connection.MyBatisUtil;
+import com.solvd.dao.interfaces.BaseBatisDAO;
 import com.solvd.dao.interfaces.CountryDAO;
 import com.solvd.model.Country;
 import org.apache.ibatis.session.SqlSession;
@@ -10,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CountryMapperDAO implements CountryDAO {
+public class CountryMapperDAO implements BaseBatisDAO<Country> {
     private final static Logger LOGGER = LogManager.getLogger(CountryMapperDAO.class);
 
     @Override
