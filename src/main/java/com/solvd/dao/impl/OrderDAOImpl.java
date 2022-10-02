@@ -205,7 +205,6 @@ public class OrderDAOImpl implements OrderDAO {
                 order.setTotalPrice(rs.getDouble("order_total_price"));
                 orders.add(order);
             }
-            LOGGER.info("Get All");
             return orders;
 
         } catch (SQLException e) {
