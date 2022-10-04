@@ -66,7 +66,7 @@ public class FactoryPatternTask {
 
         @Override
         public void whatShape() {
-            System.out.println("ProCircle");
+            System.out.println("ProRectangle");
         }
     }
 
