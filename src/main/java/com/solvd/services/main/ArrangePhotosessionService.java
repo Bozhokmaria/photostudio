@@ -71,7 +71,6 @@ public class ArrangePhotosessionService {
 
                 LOGGER.info("Photostudio id: {}, name {}, Location {}", p.getId(), p.getName(), loc);
             }
-            LOGGER.info(photostudios);
             LOGGER.info("Enter photostudio ID you want to get photosession");
             Scanner scanner = new Scanner(System.in);
             id = scanner.nextInt();
