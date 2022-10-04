@@ -55,6 +55,7 @@ public class OrderDAOImpl implements OrderDAO {
             connection = ConnectionUtil.getConnection();
             ps = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 
+
             ps.setTimestamp(1, Timestamp.valueOf(object.getBooking()));
             ps.setInt(2, object.getDressRoomId());
             ps.setInt(3, object.getClientId());
